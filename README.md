@@ -42,8 +42,8 @@ Configuration
 ``` yaml
     ibrows_post_barcode:
         soap:
-            wsdl: '%kernel.root_dir%/../src/Ibrows/PostBarcodeBundle/Soap/wsdl'
-            dir: '%kernel.root_dir%/../src/Ibrows/PostBarcodeBundle/Soap/classes'
+            wsdl: '%kernel.root_dir%/../vendor/ibrows/post_barcode_bundle/Soap/wsdl'
+            dir: '%kernel.root_dir%/../vendor/ibrows/post_barcode_bundle/Soap/Classes'
             namespace: 'Ibrows\PostBarcodeBundle\Soap\classes'
             endpoint: "https://wsbc.post.ch/wsbc/barcode/v2_2"
             username: <postApiUser>
@@ -56,7 +56,7 @@ Configuration
 
 Usage example
 -------------
-```
+``` php
     $recipient = new Address();
     $recipient->setCountry('CH');
     $recipient->setCity('Zürich');
