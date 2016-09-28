@@ -1,0 +1,27 @@
+{
+  "name": "ibrows/post_barcode_bundle",
+  "description": "Bundle for creating barcode through the swiss post soap API",
+  "keywords": ["ibrows", "barcode", "post"],
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "munzli",
+      "email": "manuel.knobel@pwc-digital.ch"
+    },
+    {
+      "name": "Fabio Gianini",
+      "email": "fabio.gianini@pwc-digital.ch"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "Ibrows\\PostBarcodeBundle\\": "" }
+  },
+  "require": {
+    "symfony/config": ">2.3",
+    "symfony/dependency-injection": ">2.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": ">3.7"
+  }
+}

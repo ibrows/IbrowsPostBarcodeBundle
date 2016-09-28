@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="ibrows_post_barcode.soap.client.factory" class="Ibrows\PostBarcodeBundle\Soap\Service\SoapClientFactory">
+            <argument>%ibrows_post_barcode.soap.wsdl%</argument>
+            <argument type="collection">
+                <argument key="location">%ibrows_post_barcode.soap.endpoint%</argument>
+                <argument key="login">%ibrows_post_barcode.soap.username%</argument>
+                <argument key="password">%ibrows_post_barcode.soap.password%</argument>
+            </argument>
+        </service>
+
+        <service id="ibrows_post_barcode.soap.client.service.barcode" class="Ibrows\PostBarcodeBundle\Soap\Service\BarcodeClientService">
+            <argument type="service" id="ibrows_post_barcode.soap.client.factory"/>
+            <argument>%ibrows_post_barcode.barcode.folder%</argument>
+            <argument>%ibrows_post_barcode.soap.frankingLicence%</argument>
+
+        </service>
+    </services>
+</container>
