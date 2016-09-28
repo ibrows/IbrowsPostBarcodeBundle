@@ -57,7 +57,7 @@ class BarcodeClientService extends AbstractSOAPService
      * @param string $lang
      * @return GenerateBarcodeResponse
      */
-    public function GenerateSingleBarcodes($type = 'LSO_2', $file = 'PNG', $res = 200, $lang = 'de')
+    public function generateSingleBarcodes($type = 'LSO_2', $file = 'PNG', $res = 200, $lang = 'de')
     {
         $generateBarcode = new GenerateBarcode();
         $barcodeDefinition = new BarcodeDefinition();
@@ -81,7 +81,7 @@ class BarcodeClientService extends AbstractSOAPService
      * @param string $text
      * @return GenerateLabelResponse
      */
-    public function GenerateLabel(AddressInterface $recipient, AddressInterface $customer, $format = 'PNG', $przl = array('ECO'), $text = '')
+    public function generateLabel(AddressInterface $recipient, AddressInterface $customer, $format = 'PNG', $przl = array('ECO'), $text = '')
     {
         if ($company = $recipient->getCompany()) {
             $name1 = $company;

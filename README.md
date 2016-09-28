@@ -70,5 +70,5 @@ Usage example
     $customer = clone $recipient;
 
     $service = $this->getContainer()->get('ibrows_post_barcode.soap.client.service.barcode');
-    $service->GenerateLabel($recipient, $customer);
+    $service->generateLabel($recipient, $customer);
 ```
