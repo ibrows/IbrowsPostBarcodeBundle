@@ -6,9 +6,7 @@ use Ibrows\PostBarcodeBundle\Model\AddressInterface;
 use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\BarcodeDefinition;
 use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\BarcodeService;
 use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\GenerateBarcode;
-use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\GenerateBarcodeResponse;
 use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\GenerateLabel;
-use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\GenerateLabelResponse;
 use Ibrows\PostBarcodeBundle\Soap\CustomClasses\Customer;
 use Ibrows\PostBarcodeBundle\Soap\CustomClasses\Data;
 use Ibrows\PostBarcodeBundle\Soap\CustomClasses\Envelope;
@@ -55,7 +53,7 @@ class BarcodeClientService extends AbstractSOAPService
      * @param string $file
      * @param int    $res
      * @param string $lang
-     * @return GenerateBarcodeResponse
+     * @return Item
      */
     public function generateSingleBarcodes($type = 'LSO_2', $file = 'PNG', $res = 200, $lang = 'de')
     {
@@ -68,9 +66,13 @@ class BarcodeClientService extends AbstractSOAPService
         $generateBarcode->Language = $lang;
         $generateBarcode->setBarcodeDefinition($barcodeDefinition);
         $response = $this->client->GenerateBarcode($generateBarcode);
+        $responseItem = $response->getData();
 
-        $this->saveBarcode($response->Data->DeliveryNoteRef . '_s', $response->Data->Barcode);
-        return $response;
+        // check for errors
+        if(!$responseItem->getErrors()) {
+            $this->saveBarcode($responseItem->getDeliveryNoteRef(), $responseItem->getBarcode());
+        }
+        return $responseItem;
     }
 
     /**
@@ -79,7 +81,7 @@ class BarcodeClientService extends AbstractSOAPService
      * @param string $format
      * @param array $przl
      * @param string $text
-     * @return GenerateLabelResponse
+     * @return Item
      */
     public function generateLabel(AddressInterface $recipient, AddressInterface $customer, $format = 'PNG', $przl = array('ECO'), $text = '')
     {
@@ -133,10 +135,13 @@ class BarcodeClientService extends AbstractSOAPService
         $generateLabel = new GenerateLabel('de', $envelope);
 
         $response = $this->client->GenerateLabel($generateLabel);
-        $responseItem = $response->Envelope->Data->Provider->Sending->Item;
-        $this->saveBarcode($responseItem->IdentCode . '_l', $responseItem->Label, $format);
+        $responseItem = $response->getEnvelope()->getData()->getProvider()->getSending()->getItem();
 
-        return $response;
+        // check for errors
+        if(!$responseItem->getErrors()) {
+            $this->saveBarcode($responseItem->getIdentCode(), $responseItem->getLabel(), $format);
+        }
+        return $responseItem;
     }
 
     /**

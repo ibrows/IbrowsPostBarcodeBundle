@@ -56,6 +56,13 @@ class Item
 
     /**
      *
+     * @var base64Binary $Label
+     * @access public
+     */
+    public $Label = null;
+
+    /**
+     *
      * @var ErrorsType $Errors
      * @access public
      */
@@ -72,7 +79,7 @@ class Item
      * @param Notification $Notification
      * @access public
      */
-    public function __construct($ItemID = null, $ItemNumber = null, $IdentCode = null, $Recipient = null, $AdditionalINFOS = null, $Attributes = null, $Notification = null, $Errors = null)
+    public function __construct($ItemID = null, $ItemNumber = null, $IdentCode = null, $Recipient = null, $AdditionalINFOS = null, $Attributes = null, $Notification = null, $Label = null, $Errors = null)
     {
         $this->ItemID = $ItemID;
         $this->ItemNumber = $ItemNumber;
@@ -81,6 +88,7 @@ class Item
         $this->AdditionalINFOS = $AdditionalINFOS;
         $this->Attributes = $Attributes;
         $this->Notification = $Notification;
+        $this->Label = $Label;
         $this->Errors = $Errors;
     }
 
@@ -208,6 +216,24 @@ class Item
     public function setNotification($Notification)
     {
         $this->Notification = $Notification;
+    }
+
+    /**
+     *
+     * @return base64Binary
+     */
+    public function getLabel()
+    {
+        return $this->Label;
+    }
+
+    /**
+     *
+     * @param base64Binary $Label
+     */
+    public function setLabel($Label)
+    {
+        $this->Label = $Label;
     }
 
     /**
