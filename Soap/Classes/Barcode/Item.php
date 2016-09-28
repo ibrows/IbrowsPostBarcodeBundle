@@ -5,201 +5,227 @@ namespace Ibrows\PostBarcodeBundle\Soap\Classes\Barcode;
 class Item
 {
 
-  /**
-   * 
-   * @var ItemIDType $ItemID
-   * @access public
-   */
-  public $ItemID = null;
+    /**
+     *
+     * @var ItemIDType $ItemID
+     * @access public
+     */
+    public $ItemID = null;
 
-  /**
-   * 
-   * @var ItemNumberType $ItemNumber
-   * @access public
-   */
-  public $ItemNumber = null;
+    /**
+     *
+     * @var ItemNumberType $ItemNumber
+     * @access public
+     */
+    public $ItemNumber = null;
 
-  /**
-   * 
-   * @var IdentCodeType $IdentCode
-   * @access public
-   */
-  public $IdentCode = null;
+    /**
+     *
+     * @var IdentCodeType $IdentCode
+     * @access public
+     */
+    public $IdentCode = null;
 
-  /**
-   * 
-   * @var Recipient $Recipient
-   * @access public
-   */
-  public $Recipient = null;
+    /**
+     *
+     * @var Recipient $Recipient
+     * @access public
+     */
+    public $Recipient = null;
 
-  /**
-   * 
-   * @var AdditionalINFOS $AdditionalINFOS
-   * @access public
-   */
-  public $AdditionalINFOS = null;
+    /**
+     *
+     * @var AdditionalINFOS $AdditionalINFOS
+     * @access public
+     */
+    public $AdditionalINFOS = null;
 
-  /**
-   * 
-   * @var ServiceCodeAttributes $Attributes
-   * @access public
-   */
-  public $Attributes = null;
+    /**
+     *
+     * @var ServiceCodeAttributes $Attributes
+     * @access public
+     */
+    public $Attributes = null;
 
-  /**
-   * 
-   * @var Notification $Notification
-   * @access public
-   */
-  public $Notification = null;
+    /**
+     *
+     * @var Notification $Notification
+     * @access public
+     */
+    public $Notification = null;
 
-  /**
-   * 
-   * @param ItemIDType $ItemID
-   * @param ItemNumberType $ItemNumber
-   * @param IdentCodeType $IdentCode
-   * @param Recipient $Recipient
-   * @param AdditionalINFOS $AdditionalINFOS
-   * @param ServiceCodeAttributes $Attributes
-   * @param Notification $Notification
-   * @access public
-   */
-  public function __construct($ItemID = null, $ItemNumber = null, $IdentCode = null, $Recipient = null, $AdditionalINFOS = null, $Attributes = null, $Notification = null)
-  {
-    $this->ItemID = $ItemID;
-    $this->ItemNumber = $ItemNumber;
-    $this->IdentCode = $IdentCode;
-    $this->Recipient = $Recipient;
-    $this->AdditionalINFOS = $AdditionalINFOS;
-    $this->Attributes = $Attributes;
-    $this->Notification = $Notification;
-  }
+    /**
+     *
+     * @var ErrorsType $Errors
+     * @access public
+     */
+    public $Errors = null;
 
-  /**
-   * 
-   * @return ItemIDType
-   */
-  public function getItemID()
-  {
-    return $this->ItemID;
-  }
+    /**
+     *
+     * @param ItemIDType $ItemID
+     * @param ItemNumberType $ItemNumber
+     * @param IdentCodeType $IdentCode
+     * @param Recipient $Recipient
+     * @param AdditionalINFOS $AdditionalINFOS
+     * @param ServiceCodeAttributes $Attributes
+     * @param Notification $Notification
+     * @access public
+     */
+    public function __construct($ItemID = null, $ItemNumber = null, $IdentCode = null, $Recipient = null, $AdditionalINFOS = null, $Attributes = null, $Notification = null, $Errors = null)
+    {
+        $this->ItemID = $ItemID;
+        $this->ItemNumber = $ItemNumber;
+        $this->IdentCode = $IdentCode;
+        $this->Recipient = $Recipient;
+        $this->AdditionalINFOS = $AdditionalINFOS;
+        $this->Attributes = $Attributes;
+        $this->Notification = $Notification;
+        $this->Errors = $Errors;
+    }
 
-  /**
-   * 
-   * @param ItemIDType $ItemID
-   */
-  public function setItemID($ItemID)
-  {
-    $this->ItemID = $ItemID;
-  }
+    /**
+     *
+     * @return ItemIDType
+     */
+    public function getItemID()
+    {
+        return $this->ItemID;
+    }
 
-  /**
-   * 
-   * @return ItemNumberType
-   */
-  public function getItemNumber()
-  {
-    return $this->ItemNumber;
-  }
+    /**
+     *
+     * @param ItemIDType $ItemID
+     */
+    public function setItemID($ItemID)
+    {
+        $this->ItemID = $ItemID;
+    }
 
-  /**
-   * 
-   * @param ItemNumberType $ItemNumber
-   */
-  public function setItemNumber($ItemNumber)
-  {
-    $this->ItemNumber = $ItemNumber;
-  }
+    /**
+     *
+     * @return ItemNumberType
+     */
+    public function getItemNumber()
+    {
+        return $this->ItemNumber;
+    }
 
-  /**
-   * 
-   * @return IdentCodeType
-   */
-  public function getIdentCode()
-  {
-    return $this->IdentCode;
-  }
+    /**
+     *
+     * @param ItemNumberType $ItemNumber
+     */
+    public function setItemNumber($ItemNumber)
+    {
+        $this->ItemNumber = $ItemNumber;
+    }
 
-  /**
-   * 
-   * @param IdentCodeType $IdentCode
-   */
-  public function setIdentCode($IdentCode)
-  {
-    $this->IdentCode = $IdentCode;
-  }
+    /**
+     *
+     * @return IdentCodeType
+     */
+    public function getIdentCode()
+    {
+        return $this->IdentCode;
+    }
 
-  /**
-   * 
-   * @return Recipient
-   */
-  public function getRecipient()
-  {
-    return $this->Recipient;
-  }
+    /**
+     *
+     * @param IdentCodeType $IdentCode
+     */
+    public function setIdentCode($IdentCode)
+    {
+        $this->IdentCode = $IdentCode;
+    }
 
-  /**
-   * 
-   * @param Recipient $Recipient
-   */
-  public function setRecipient($Recipient)
-  {
-    $this->Recipient = $Recipient;
-  }
+    /**
+     *
+     * @return Recipient
+     */
+    public function getRecipient()
+    {
+        return $this->Recipient;
+    }
 
-  /**
-   * 
-   * @return AdditionalINFOS
-   */
-  public function getAdditionalINFOS()
-  {
-    return $this->AdditionalINFOS;
-  }
+    /**
+     *
+     * @param Recipient $Recipient
+     */
+    public function setRecipient($Recipient)
+    {
+        $this->Recipient = $Recipient;
+    }
 
-  /**
-   * 
-   * @param AdditionalINFOS $AdditionalINFOS
-   */
-  public function setAdditionalINFOS($AdditionalINFOS)
-  {
-    $this->AdditionalINFOS = $AdditionalINFOS;
-  }
+    /**
+     *
+     * @return AdditionalINFOS
+     */
+    public function getAdditionalINFOS()
+    {
+        return $this->AdditionalINFOS;
+    }
 
-  /**
-   * 
-   * @return ServiceCodeAttributes
-   */
-  public function getAttributes()
-  {
-    return $this->Attributes;
-  }
+    /**
+     *
+     * @param AdditionalINFOS $AdditionalINFOS
+     */
+    public function setAdditionalINFOS($AdditionalINFOS)
+    {
+        $this->AdditionalINFOS = $AdditionalINFOS;
+    }
 
-  /**
-   * 
-   * @param ServiceCodeAttributes $Attributes
-   */
-  public function setAttributes($Attributes)
-  {
-    $this->Attributes = $Attributes;
-  }
+    /**
+     *
+     * @return ServiceCodeAttributes
+     */
+    public function getAttributes()
+    {
+        return $this->Attributes;
+    }
 
-  /**
-   * 
-   * @return Notification
-   */
-  public function getNotification()
-  {
-    return $this->Notification;
-  }
+    /**
+     *
+     * @param ServiceCodeAttributes $Attributes
+     */
+    public function setAttributes($Attributes)
+    {
+        $this->Attributes = $Attributes;
+    }
 
-  /**
-   * 
-   * @param Notification $Notification
-   */
-  public function setNotification($Notification)
-  {
-    $this->Notification = $Notification;
-  }
+    /**
+     *
+     * @return Notification
+     */
+    public function getNotification()
+    {
+        return $this->Notification;
+    }
+
+    /**
+     *
+     * @param Notification $Notification
+     */
+    public function setNotification($Notification)
+    {
+        $this->Notification = $Notification;
+    }
+
+    /**
+     *
+     * @return ErrorsType
+     */
+    public function getErrors()
+    {
+        return $this->Errors;
+    }
+
+    /**
+     *
+     * @param ErrorsType $Errors
+     */
+    public function setErrors($Errors)
+    {
+        $this->Errors = $Errors;
+    }
 
 }

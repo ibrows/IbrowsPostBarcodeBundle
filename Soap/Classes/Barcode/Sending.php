@@ -4,40 +4,38 @@ namespace Ibrows\PostBarcodeBundle\Soap\Classes\Barcode;
 
 class Sending
 {
+    /**
+     *
+     * @var Item $Item
+     * @access public
+     */
+    public $Item = null;
 
-  /**
-   * 
-   * @var ValidateCombinationItem $Item
-   * @access public
-   */
-  public $Item = null;
+    /**
+     *
+     * @param Item $Item
+     * @access public
+     */
+    public function __construct($Item = null)
+    {
+        $this->Item = $Item;
+    }
 
-  /**
-   * 
-   * @param ValidateCombinationItem $Item
-   * @access public
-   */
-  public function __construct($Item = null)
-  {
-    $this->Item = $Item;
-  }
+    /**
+     *
+     * @return Item
+     */
+    public function getItem()
+    {
+        return $this->Item;
+    }
 
-  /**
-   * 
-   * @return ValidateCombinationItem
-   */
-  public function getItem()
-  {
-    return $this->Item;
-  }
-
-  /**
-   * 
-   * @param ValidateCombinationItem $Item
-   */
-  public function setItem($Item)
-  {
-    $this->Item = $Item;
-  }
-
+    /**
+     *
+     * @param Item $Item
+     */
+    public function setItem($Item)
+    {
+        $this->Item = $Item;
+    }
 }
