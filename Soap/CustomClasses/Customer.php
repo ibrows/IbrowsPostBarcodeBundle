@@ -23,6 +23,4 @@ class Customer
         $this->Street = $Street;
         $this->ZIP = $ZIP;
     }
-
-
-} 
+}

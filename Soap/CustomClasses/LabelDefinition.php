@@ -19,6 +19,4 @@ class LabelDefinition
         $this->PrintAddresses = $PrintAddresses;
         $this->PrintPreview = $PrintPreview;
     }
-
-
-} 
+}

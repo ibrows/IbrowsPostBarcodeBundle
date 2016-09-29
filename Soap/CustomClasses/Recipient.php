@@ -25,6 +25,4 @@ class Recipient
         $this->ZIP = $ZIP;
         $this->Name2 = $Name2;
     }
-
-
-} 
+}

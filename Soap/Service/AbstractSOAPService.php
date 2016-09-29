@@ -47,7 +47,4 @@ abstract class AbstractSOAPService {
     {
         return $this->factory;
     }
-
-
-
-} 
+}

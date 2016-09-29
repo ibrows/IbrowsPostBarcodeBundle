@@ -15,6 +15,4 @@ class Envelope
         $this->FileInfos = $FileInfos;
         $this->LabelDefinition = $LabelDefinition;
     }
-
-
-} 
+}

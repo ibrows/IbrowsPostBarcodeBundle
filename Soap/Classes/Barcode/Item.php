@@ -4,7 +4,6 @@ namespace Ibrows\PostBarcodeBundle\Soap\Classes\Barcode;
 
 class Item
 {
-
     /**
      *
      * @var ItemIDType $ItemID
@@ -253,5 +252,4 @@ class Item
     {
         $this->Errors = $Errors;
     }
-
 }

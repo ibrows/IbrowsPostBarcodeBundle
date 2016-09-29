@@ -11,6 +11,4 @@ class Provider
     {
         $this->Sending = $Sending;
     }
-
-
-} 
+}

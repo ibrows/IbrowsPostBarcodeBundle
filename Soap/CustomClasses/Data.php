@@ -11,6 +11,4 @@ class Data
     {
         $this->Provider = $Provider;
     }
-
-
-} 
+}

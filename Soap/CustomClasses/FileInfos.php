@@ -15,6 +15,4 @@ class FileInfos
         $this->FrankingLicense = $FrankingLicense;
         $this->PpFranking = $PpFranking;
     }
-
-
-} 
+}

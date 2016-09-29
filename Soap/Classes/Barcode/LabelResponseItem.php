@@ -91,5 +91,4 @@ class LabelResponseItem
     {
         $this->Errors = $Errors;
     }
-
 }

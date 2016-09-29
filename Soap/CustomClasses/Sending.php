@@ -11,6 +11,4 @@ class Sending
     {
         $this->Item = $Item;
     }
-
-
-} 
+}
