@@ -13,9 +13,6 @@ namespace Ibrows\PostBarcodeBundle\Model;
  */
 interface AddressInterface
 {
-    const MISS = 'Frau';
-    const MISTER = 'Herr';
-
     /**
      * @return string
      */
