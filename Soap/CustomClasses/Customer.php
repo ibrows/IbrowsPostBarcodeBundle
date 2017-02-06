@@ -13,10 +13,9 @@ class Customer
     public $Country;
     public $DomicilePostOffice;
 
-    function __construct($Name1, $Street, $POBox, $ZIP, $City, $Country, $DomicilePostOffice)
+    function __construct($Name1, $Street, $POBox, $ZIP, $City, $DomicilePostOffice)
     {
         $this->City = $City;
-        $this->Country = $Country;
         $this->DomicilePostOffice = $DomicilePostOffice;
         $this->Name1 = $Name1;
         $this->POBox = $POBox;

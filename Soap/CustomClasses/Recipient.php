@@ -14,10 +14,9 @@ class Recipient
     public $Mobile;
     public $EMail;
 
-    function __construct($Name1, $Street, $ZIP, $City, $Country, $Mobile, $EMail, $Name2)
+    function __construct($Name1, $Street, $ZIP, $City, $Mobile, $EMail, $Name2)
     {
         $this->City = $City;
-        $this->Country = $Country;
         $this->EMail = $EMail;
         $this->Mobile = $Mobile;
         $this->Name1 = $Name1;

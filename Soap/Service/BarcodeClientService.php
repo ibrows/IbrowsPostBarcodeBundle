@@ -98,7 +98,6 @@ class BarcodeClientService extends AbstractSOAPService
             $recipient->getPrimaryStreet(),
             $recipient->getZipCode(),
             $recipient->getCity(),
-            $recipient->getCountry(),
             null,
             null,
             $name2
@@ -124,7 +123,6 @@ class BarcodeClientService extends AbstractSOAPService
             $customer->getSecondaryStreet(),
             $customer->getZipCode(),
             $customer->getCity(),
-            $customer->getCountry(),
             $customer->getZipCode() . " " . $customer->getCity()
         );
 
