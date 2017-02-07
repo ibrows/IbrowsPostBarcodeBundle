@@ -78,12 +78,13 @@ class BarcodeClientService extends AbstractSOAPService
     /**
      * @param AddressInterface $recipient
      * @param AddressInterface $customer
+     * @param \DateTime $deliveryDate
      * @param string $format
      * @param array $przl
      * @param string $text
      * @return Item
      */
-    public function generateLabel(AddressInterface $recipient, AddressInterface $customer, $format = 'PNG', $przl = array('ECO'), $text = '')
+    public function generateLabel(AddressInterface $recipient, AddressInterface $customer, \DateTime $deliveryDate, $format = 'PNG', $przl = array('ECO'), $text = '')
     {
         if ($company = $recipient->getCompany()) {
             $name1 = $company;
@@ -109,7 +110,8 @@ class BarcodeClientService extends AbstractSOAPService
             array(
                 'PRZL'     => $przl,
                 'FreeText' => $text,
-                'ProClima' => true
+                'ProClima' => true,
+                'DeliveryDate' => $deliveryDate->format('Y-m-d')
             )
         );
 
