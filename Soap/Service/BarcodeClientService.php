@@ -36,6 +36,7 @@ class BarcodeClientService extends AbstractSOAPService
 
     /**
      * BarcodeClientService constructor.
+     *
      * @param SoapClientFactory $factory
      * @param string            $barcodeFolder
      * @param string            $frankingLicense
@@ -53,6 +54,7 @@ class BarcodeClientService extends AbstractSOAPService
      * @param string $file
      * @param int    $res
      * @param string $lang
+     *
      * @return Item
      */
     public function generateSingleBarcodes($type = 'LSO_2', $file = 'PNG', $res = 200, $lang = 'de')
@@ -69,22 +71,24 @@ class BarcodeClientService extends AbstractSOAPService
         $responseItem = $response->getData();
 
         // check for errors
-        if(!$responseItem->getErrors()) {
+        if (!$responseItem->getErrors()) {
             $this->saveBarcode($responseItem->getDeliveryNoteRef(), $responseItem->getBarcode());
         }
+
         return $responseItem;
     }
 
     /**
      * @param AddressInterface $recipient
      * @param AddressInterface $customer
-     * @param \DateTime $deliveryDate
-     * @param string $format
-     * @param array $przl
-     * @param string $text
+     * @param \DateTime|null   $deliveryDate
+     * @param string           $format
+     * @param array            $przl
+     * @param string           $text
+     *
      * @return Item
      */
-    public function generateLabel(AddressInterface $recipient, AddressInterface $customer, \DateTime $deliveryDate, $format = 'PNG', $przl = array('ECO'), $text = '')
+    public function generateLabel(AddressInterface $recipient, AddressInterface $customer, $deliveryDate = null, $format = 'PNG', $przl = ['ECO'], $text = '')
     {
         if ($company = $recipient->getCompany()) {
             $name1 = $company;
@@ -104,15 +108,20 @@ class BarcodeClientService extends AbstractSOAPService
             $name2
         );
 
+        $itemOptions = [
+            'PRZL'     => $przl,
+            'FreeText' => $text,
+            'ProClima' => true,
+        ];
+
+        if ($deliveryDate instanceof \DateTime) {
+            $itemOptions['DeliveryDate'] = $deliveryDate->format('Y-m-d');
+        }
+
         $item = new Item(
             0,
             $postRecipient,
-            array(
-                'PRZL'     => $przl,
-                'FreeText' => $text,
-                'ProClima' => true,
-                'DeliveryDate' => $deliveryDate->format('Y-m-d')
-            )
+            $itemOptions
         );
 
         $sending = new Sending($item);
@@ -138,9 +147,10 @@ class BarcodeClientService extends AbstractSOAPService
         $responseItem = $response->getEnvelope()->getData()->getProvider()->getSending()->getItem();
 
         // check for errors
-        if(!$responseItem->getErrors()) {
+        if (!$responseItem->getErrors()) {
             $this->saveBarcode($responseItem->getIdentCode(), $responseItem->getLabel(), $format);
         }
+
         return $responseItem;
     }
 
@@ -160,6 +170,7 @@ class BarcodeClientService extends AbstractSOAPService
     /**
      * @param string $name
      * @param string $ext
+     *
      * @return string
      */
     public function getFilepath($name, $ext = 'png')
