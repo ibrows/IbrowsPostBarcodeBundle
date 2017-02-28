@@ -4,6 +4,7 @@ namespace Ibrows\PostBarcodeBundle\Soap\Service;
 
 use Ibrows\PostBarcodeBundle\Model\AddressInterface;
 use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\BarcodeDefinition;
+use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\BarcodeResponseData;
 use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\BarcodeService;
 use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\GenerateBarcode;
 use Ibrows\PostBarcodeBundle\Soap\Classes\Barcode\GenerateLabel;
@@ -17,6 +18,10 @@ use Ibrows\PostBarcodeBundle\Soap\CustomClasses\Provider;
 use Ibrows\PostBarcodeBundle\Soap\CustomClasses\Recipient;
 use Ibrows\PostBarcodeBundle\Soap\CustomClasses\Sending;
 
+/**
+ * Class BarcodeClientService
+ * @package Ibrows\PostBarcodeBundle\Soap\Service
+ */
 class BarcodeClientService extends AbstractSOAPService
 {
     /**
@@ -36,7 +41,6 @@ class BarcodeClientService extends AbstractSOAPService
 
     /**
      * BarcodeClientService constructor.
-     *
      * @param SoapClientFactory $factory
      * @param string            $barcodeFolder
      * @param string            $frankingLicense
@@ -54,8 +58,7 @@ class BarcodeClientService extends AbstractSOAPService
      * @param string $file
      * @param int    $res
      * @param string $lang
-     *
-     * @return Item
+     * @return BarcodeResponseData
      */
     public function generateSingleBarcodes($type = 'LSO_2', $file = 'PNG', $res = 200, $lang = 'de')
     {
@@ -85,12 +88,13 @@ class BarcodeClientService extends AbstractSOAPService
      * @param string           $format
      * @param array            $przl
      * @param string           $text
-     *
+     * @param integer          $weight
      * @return Item
      */
-    public function generateLabel(AddressInterface $recipient, AddressInterface $customer, $deliveryDate = null, $format = 'PNG', $przl = ['ECO'], $text = '')
+    public function generateLabel(AddressInterface $recipient, AddressInterface $customer, $deliveryDate = null, $format = 'PNG', $przl = array('ECO'), $text = '', $weight = 0)
     {
-        if ($company = $recipient->getCompany()) {
+        $company = $recipient->getCompany();
+        if ($company) {
             $name1 = $company;
             $name2 = $recipient->getFullName();
         } else {
@@ -114,6 +118,10 @@ class BarcodeClientService extends AbstractSOAPService
             'ProClima' => true,
         ];
 
+        if (0 < $weight) {
+            $itemOptions['Dimensions'] = ['Weight' => $weight];
+        }
+
         if ($deliveryDate instanceof \DateTime) {
             $itemOptions['DeliveryDate'] = $deliveryDate->format('Y-m-d');
         }
@@ -134,7 +142,7 @@ class BarcodeClientService extends AbstractSOAPService
             $customer->getSecondaryStreet(),
             $customer->getZipCode(),
             $customer->getCity(),
-            $customer->getZipCode() . " " . $customer->getCity()
+            $customer->getZipCode()." ".$customer->getCity()
         );
 
         $fileInfos = new FileInfos($this->frankingLicense, true, $postCustomer);
@@ -156,26 +164,12 @@ class BarcodeClientService extends AbstractSOAPService
 
     /**
      * @param string $name
-     * @param string $data
-     * @param string $format
-     */
-    protected function saveBarcode($name, $data, $format = 'PNG')
-    {
-        if (!file_exists($this->folder)) {
-            mkdir($this->folder, 0777, true);
-        }
-        file_put_contents($this->getFilepath($name, $format), $data);
-    }
-
-    /**
-     * @param string $name
      * @param string $ext
-     *
      * @return string
      */
     public function getFilepath($name, $ext = 'png')
     {
-        return $this->folder . "/" . $name . "." . strtolower($ext);
+        return $this->folder."/".$name.".".strtolower($ext);
     }
 
     /**
@@ -196,5 +190,18 @@ class BarcodeClientService extends AbstractSOAPService
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * @param string $name
+     * @param string $data
+     * @param string $format
+     */
+    protected function saveBarcode($name, $data, $format = 'PNG')
+    {
+        if (!file_exists($this->folder)) {
+            mkdir($this->folder, 0777, true);
+        }
+        file_put_contents($this->getFilepath($name, $format), $data);
     }
 }
