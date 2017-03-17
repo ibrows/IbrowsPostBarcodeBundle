@@ -24,6 +24,9 @@ use Ibrows\PostBarcodeBundle\Soap\CustomClasses\Sending;
  */
 class BarcodeClientService extends AbstractSOAPService
 {
+    const LABELLAYOUT_FORMAT_A5 = 'A5';
+    const LABELLAYOUT_FORMAT_A6 = 'A6';
+
     /**
      * @var BarcodeService
      */
@@ -82,6 +85,8 @@ class BarcodeClientService extends AbstractSOAPService
     }
 
     /**
+     * TODO refactor this method: too many parameters
+     *
      * @param AddressInterface $recipient
      * @param AddressInterface $customer
      * @param \DateTime|null   $deliveryDate
@@ -89,10 +94,19 @@ class BarcodeClientService extends AbstractSOAPService
      * @param array            $przl
      * @param string           $text
      * @param integer          $weight
+     * @param array            $unNumbers
      * @return Item
      */
-    public function generateLabel(AddressInterface $recipient, AddressInterface $customer, $deliveryDate = null, $format = 'PNG', $przl = array('ECO'), $text = '', $weight = 0)
-    {
+    public function generateLabel(
+        AddressInterface $recipient,
+        AddressInterface $customer,
+        $deliveryDate = null,
+        $format = 'PNG',
+        $przl = ['ECO'],
+        $text = '',
+        $weight = 0,
+        $unNumbers = []
+    ) {
         $company = $recipient->getCompany();
         if ($company) {
             $name1 = $company;
@@ -126,11 +140,11 @@ class BarcodeClientService extends AbstractSOAPService
             $itemOptions['DeliveryDate'] = $deliveryDate->format('Y-m-d');
         }
 
-        $item = new Item(
-            0,
-            $postRecipient,
-            $itemOptions
-        );
+        if (0 < count($unNumbers)) {
+            $itemOptions['UNNumbers'] = ['UNNumber' => implode(', ', $unNumbers)];
+        }
+
+        $item = new Item(0, $postRecipient, $itemOptions);
 
         $sending = new Sending($item);
         $provider = new Provider($sending);
@@ -145,8 +159,13 @@ class BarcodeClientService extends AbstractSOAPService
             $customer->getZipCode()." ".$customer->getCity()
         );
 
+        $labelLayout = self::LABELLAYOUT_FORMAT_A6;
+        if (3 < count($przl)) {
+            $labelLayout = self::LABELLAYOUT_FORMAT_A5;
+        }
+
         $fileInfos = new FileInfos($this->frankingLicense, true, $postCustomer);
-        $labelDefinition = new LabelDefinition('A6', 'RecipientAndCustomer', $format);
+        $labelDefinition = new LabelDefinition($labelLayout, 'RecipientAndCustomer', $format);
         $envelope = new Envelope($data, $fileInfos, $labelDefinition);
 
         $generateLabel = new GenerateLabel('de', $envelope);
@@ -154,7 +173,6 @@ class BarcodeClientService extends AbstractSOAPService
         $response = $this->client->GenerateLabel($generateLabel);
         $responseItem = $response->getEnvelope()->getData()->getProvider()->getSending()->getItem();
 
-        // check for errors
         if (!$responseItem->getErrors()) {
             $this->saveBarcode($responseItem->getIdentCode(), $responseItem->getLabel(), $format);
         }
