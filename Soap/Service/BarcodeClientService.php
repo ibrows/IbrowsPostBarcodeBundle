@@ -27,6 +27,8 @@ class BarcodeClientService extends AbstractSOAPService
     const LABELLAYOUT_FORMAT_A5 = 'A5';
     const LABELLAYOUT_FORMAT_A6 = 'A6';
 
+    const DELIVERY_INSTRUCTION_CODE_DATE = 'ZAW3217';
+
     /**
      * @var BarcodeService
      */
@@ -138,6 +140,8 @@ class BarcodeClientService extends AbstractSOAPService
 
         if ($deliveryDate instanceof \DateTime) {
             $itemOptions['DeliveryDate'] = $deliveryDate->format('Y-m-d');
+            // Delivery instruction code for specific delivery date
+            $itemOptions['PRZL'][] = self::DELIVERY_INSTRUCTION_CODE_DATE;
         }
 
         if (0 < count($unNumbers)) {
