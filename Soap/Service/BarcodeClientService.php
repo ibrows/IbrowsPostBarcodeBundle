@@ -145,7 +145,7 @@ class BarcodeClientService extends AbstractSOAPService
         }
 
         if (0 < count($unNumbers)) {
-            $itemOptions['UNNumbers'] = ['UNNumber' => implode(', ', $unNumbers)];
+            $itemOptions['UNNumbers'] = ['UNNumber' => $unNumbers];
         }
 
         $item = new Item(0, $postRecipient, $itemOptions);
